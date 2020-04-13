@@ -1,0 +1,17 @@
+{
+  "dogs": [
+    {
+      "id": 1586691897927,
+      "name": "Luna",
+      "breed": "Cocker Spaniel",
+      "owner": 1586691863221
+    }
+  ],
+  "users": [
+    {
+      "id": 1586691863221,
+      "name": "oli",
+      "email": "hello@oliverjam.es"
+    }
+  ]
+}

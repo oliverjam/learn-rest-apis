@@ -41,7 +41,9 @@ Up until now our servers have mostly been responding with HTML. Since this serve
 
 ## Reading resources
 
-We'll start with reading data so we can get our server returning something. Create a `workshops/handlers/dogs.js` file. This is where all the handlers for our dogs resources will live. Create a `getAll` handler function and export it. This handler should use `model.getAllDogs` to retrive all the dogs in the database, then send them as the response body using `res.send`.
+We'll start with reading data so we can get our server returning something. Create a `workshops/handlers/dogs.js` file and import the dogs model from `../model/dogs`.
+
+This is where all the handlers for our dogs resources will live. Create a `getAll` handler function and export it. This handler should use `model.getAllDogs` to retrive all the dogs in the database, then send them as the response body using `res.send`.
 
 All the `model` functions return promises, so you'll need to use `.then` and `.catch` with them. If the handler catches an error it should call the `next` argument with that error to let Express handle it.
 
@@ -49,6 +51,8 @@ All the `model` functions return promises, so you'll need to use `.then` and `.c
 <summary>Solution</summary>
 
 ```js
+const model = require("../model/dogs");
+
 function getAll(req, res, next) {
   model
     .getAllDogs()

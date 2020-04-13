@@ -245,7 +245,7 @@ Add a new `POST /users` route to your server that uses the `users.post` handler.
 <summary>Solution</summary>
 
 ```js
-function signup(req, res, next) {
+function post(req, res, next) {
   const userData = req.body;
   model
     .createUser(userData)

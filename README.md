@@ -352,19 +352,19 @@ function login(req, res, next) {
 
 ### Verifying tokens
 
-Our API is going to use something called "bearer tokens" for authentication. This means any request for a protected resource must have an `authorization` header with a value like this `Bearer 12345` (where `12345` is a valid token). Let's create a middleware that can grab this token, extract the user, then put it on the request object for subsequent handlers to use.
+Our API is going to use something called "bearer tokens" for authentication. This means any request for a protected resource must have an `authorization` header with a value like: `Bearer 12345` (where `12345` is a valid token). Let's create a middleware that can grab this token, extract the user, then put it on the request object for subsequent handlers to use.
 
-Create a new file `workshop/middleware/auth.js`. Write a middleware function named `verifyUser`. It should read `req.headers.authorization` to get the token. If the header isn't present create a new error with a status property of `400` ("bad request"). Call `next` with the error to pass it to the error-handling middleware.
+Create a new file `workshop/middleware/auth.js`. Write a middleware function named `verifyUser`. It should read the authorization header from the request object to get the bearer token. If the header isn't present create a new error with a status property of `400` ("bad request"). Call `next` with the error to pass it to the error-handling middleware.
 
-To get the token out of the header you'll need to remove the "Bearer" bit:
+To get the token out of the header you'll need to remove the "Bearer " bit (hint: [`string.replace`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)).
 
-```js
-const token = authHeader.replace("Bearer ", "");
-```
+Once you have just the token use the JWT library to verify it and get the decoded user ID. Don't forget to use `dotenv` to access the `JWT_SECRET` environment variable.
 
-Once you have this use the JWT library to verify the token and get the decoded user object. We want to grab the matching user from the database, then attach it to the request object. That way all our other handlers will be able to access the authenticated user. You can use `model.getUserById` to get the user from the database. Don't forget to call `next()` when you're done to pass the request on to the next handler.
+We want to grab the user whose ID matches the one in the token from the database, then attach it to the request object. That way all our other handlers will be able to access the authenticated user.
 
-If the JWT verification fails you should create an error with a status property of `401` and all `next` with it.
+You can use `model.getUserById` to get the user from the database. Don't forget to call `next()` when you're done to pass the request on to the next handler.
+
+If the JWT verification fails you should create an error with a status property of `401` and call `next` with it.
 
 <details>
 <summary>Solution</summary>

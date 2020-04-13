@@ -330,7 +330,8 @@ require("dotenv").config();
 const SECRET = process.env.JWT_SECRET;
 
 function login(req, res, next) {
-  const { email, password } = req.body;
+  const email = req.body.email;
+  const password = req.body.password;
   model
     .getUser(email)
     .then((user) => {

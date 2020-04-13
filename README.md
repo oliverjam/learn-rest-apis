@@ -320,7 +320,7 @@ Create a handler named `login` that gets the submitted email and password from `
 
 If the passwords do not match then create a new error with a message of "Unauthorized". Set a `status` property on the error object with a value of `401`. Then call `next` with the error to pass it on to the error-handling middleware.
 
-If the passwords match then sign a new JWT using `process.env.JWT_SECRET` and respond with a `200` and an object with just the `access_token` property.
+If the passwords match then sign a new JWT using `process.env.JWT_SECRET` and respond with a `200` and an object with just the `access_token` property. We don't need to send the whole user object since this endpoint is just for logging in and getting a token.
 
 <details>
 <summary>Solution</summary>

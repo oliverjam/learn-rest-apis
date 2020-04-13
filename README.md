@@ -312,7 +312,7 @@ function signup(req, res, next) {
 
 ### Logging in
 
-Our token currently expires after one hour. Users can't keep creating new accounts to get new tokens, so we need to add a route allowing them to log in and get a new token.
+Our token currently expires after one hour. Users can't keep creating new accounts to get new tokens, so we need to add a route allowing them to log in and get a new token. Create a `POST /login` route on your server.
 
 Create a handler named `login` that gets the submitted email and password from `req.body`. It should then use `model.getUser(email)` to find the user in the database and compare the submitted password to the stored one.
 
@@ -486,4 +486,4 @@ Test this is Postman by sending a `POST` request with a new dog object. Make sur
 
 ## Stretch goals
 
-Add the missing CRUD routes for `/user` (`GET`, `PUT` and `DELETE`). Make sure only authenticated users can access these, and that users can only edit or delete themselves.
+Add the missing CRUD routes for `/user` (`GET`, `PUT` and `DELETE`). Make sure only authenticated users can access these, and that users can only edit or delete themselves. Also don't send the user's password in the `GET` response!

@@ -18,8 +18,10 @@ server.post("/dogs/", verifyUser, dogs.post);
 server.put("/dogs/:id", verifyUser, dogs.put);
 server.delete("/dogs/:id", verifyUser, dogs.del);
 
+server.get("/user/:id", users.post);
 server.post("/users", users.post);
-server.post("/login", users.login);
+server.put("/user/:id", users.put);
+server.delete("/user/:id", users.del);
 
 server.use(handleError);
 

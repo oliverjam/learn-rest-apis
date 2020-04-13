@@ -10,7 +10,7 @@ function getAll(req, res, next) {
 }
 
 function get(req, res, next) {
-  const { id } = req.params;
+  const id = req.params.id;
   model
     .getDog(id)
     .then((dog) => {
@@ -20,11 +20,11 @@ function get(req, res, next) {
 }
 
 function post(req, res, next) {
-  const user = req.user;
-  const dog = req.body;
-  dog.owner = user.id;
+  const newDog = req.body;
+  const userId = req.user.id;
+  newDog.owner = userId;
   model
-    .createDog(dog)
+    .createDog(newDog)
     .then((dog) => {
       res.status(201).send(dog);
     })
@@ -32,8 +32,8 @@ function post(req, res, next) {
 }
 
 function put(req, res, next) {
-  const userId = req.user.id;
   const dogId = req.params.id;
+  const userId = req.user.id;
   const newDog = req.body;
   model
     .getDog(dogId)
@@ -52,8 +52,8 @@ function put(req, res, next) {
 }
 
 function del(req, res, next) {
-  const userId = req.user.id;
   const dogId = req.params.id;
+  const userId = req.user.id;
   model
     .getDog(dogId)
     .then((dog) => {

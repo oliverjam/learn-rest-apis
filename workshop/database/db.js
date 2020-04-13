@@ -31,7 +31,6 @@ function insert(key, value) {
   const table = db[key];
   if (!table) return Promise.reject(new Error(`Table '${key}' not found`));
   table.push(value);
-  console.log(table, value);
   return fsPromises
     .writeFile(dbPath, JSON.stringify(db, null, 2))
     .then(() => value);

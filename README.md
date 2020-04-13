@@ -472,3 +472,9 @@ function post(req, res, next) {
 ```
 
 </details>
+
+Test this is Postman by sending a `POST` request with a new dog object. Make sure you have a valid `authorization` header set. Don't send an `owner` property. The response should contain an `owner` property with the ID of the logged in user.
+
+## Stretch goals
+
+Add the missing CRUD routes for `/user` (`GET`, `PUT` and `DELETE`). Make sure only authenticated users can access these, and that users can only edit or delete themselves.

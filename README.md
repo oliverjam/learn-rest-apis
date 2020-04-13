@@ -272,7 +272,7 @@ You should see a `201` response with the new user object as the body.
 
 ### Token-based authentication
 
-We can create a user, but we have no way for subsequent requests to prove they havee been made by that user. We can do this using a token—when a user signs up we can provide a token containing their ID that they must send on all subsequent requests.
+We can create a user, but we have no way for subsequent requests to prove they havee been made by that user. If we provide a token containing their ID they can send this on all subsequent requests to authenticate themselves. This is similar to the browser sending a cookie with every request.
 
 We'll use JWTs as our tokens. We need a secret to sign our JWTs with so we can verify they haven't been tampered with. We should keep this secret, well, secret, otherwise anyone can sign our tokens and we can't trust any of them.
 
@@ -282,7 +282,11 @@ Add a `.env` file to the root of the project with a `JWT_SECRET` environment var
 JWT_SECRET=mn6Ak%8fbaf$ur2u£uka*8ava
 ```
 
-Now we can use `dotenv` to access this on `process.env.JWT_SECRET` in our `workshop/handlers/users` file. Use the secret to sign a JWT containing the newly created user's ID. We need to send the JWT as part of the response object, so add an `access_token` to the object we're sending.
+Now we can use `dotenv` to access this on `process.env.JWT_SECRET` in our `workshop/handlers/users` file. Use the secret to sign a JWT containing the newly created user's ID. You should also set an expiry for the token so the user isn't logged in forever. You can do this by passing a third argument to `jwt.sign`—an options object like `{ expiresIn: "1h" }`.
+
+We need to send the JWT as part of the response object, so add an `access_token` property to the object we're sending.
+
+Try sending a `POST /users` again in Postman. Now you should see an extra `access_token` property in the response. This is a JWT containing the user's ID.
 
 <details>
 <summary>Solution</summary>

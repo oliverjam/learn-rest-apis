@@ -487,3 +487,9 @@ Test this is Postman by sending a `POST` request with a new dog object. Make sur
 ## Stretch goals
 
 Add the missing CRUD routes for `/user` (`GET`, `PUT` and `DELETE`). Make sure only authenticated users can access these, and that users can only edit or delete themselves. Also don't send the user's password in the `GET` response!
+
+### Versioning
+
+General purpose APIs should usually have version numbers. This lets you make breaking changing whilst maintaining backwards compatability. For example if you wanted to change the name of one of the endpoints you'd have to make sure every client using your API had updated before you made the change, or you'd break all those apps.
+
+Instead you can put a version number in the URL so clients can keep using the version they're on forever without it breaking. Add `/v1/` to the front of all your routes. Now if you ever want to make a breaking change you can release a new version with `/v2/` for all the URLs.

@@ -1,6 +1,6 @@
 # Learn REST APIs
 
-Learn how to build a service that manages JSON data using the REST architecture.
+Learn how to build a service that manages JSON data using the REST architecture. We'll also learn how to use bearer tokens to authenticate our API and Postman to test it in development.
 
 ## Representational State Transfer (REST)
 

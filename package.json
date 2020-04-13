@@ -5,7 +5,7 @@
   "main": "workshop/server.js",
   "private": true,
   "scripts": {
-    "dev": "nodemon workshop/server.js"
+    "dev": "nodemon workshop/server.js --ignore **/db.json"
   },
   "keywords": [],
   "author": "",

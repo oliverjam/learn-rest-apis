@@ -213,11 +213,9 @@ Finally we need a route for deleting dogs from the database. Create a new route 
 function del(req, res, next) {
   const dogId = req.params.id;
   model
-    .getDog(dogId)
-    .then((dog) => {
-      model.deleteDog(dogId).then(() => {
-        res.status(204).send();
-      });
+    .deleteDog(dogId)
+    .then(() => {
+      res.status(204).send();
     })
     .catch(next);
 }

@@ -128,7 +128,7 @@ server.use(express.json());
 
 Create a handler function named `post` that gets the submitted data from `req.body`, then uses `model.createDog` to add a dog to the database. Once the dog is created respond with a `201` status code and the new dog object. `201` means "new resource created". Make sure you respond with the object that `createDog` resolves with (rather than the user-submitted one) since it will contain the database-generated ID.
 
-Add this handler to your server for the `POST /dogs/:id` route.
+Add this handler to your server for the `POST /dogs/` route.
 
 We can test this endpoint using Postman. Create a new request and change the method to POST. Keep the URL as `localhost:3000/dogs`. Go to the "Body" tab, then select the "raw" radio button. This will let us send a JSON POST body. Change the format dropdown from "Text" to "JSON", then enter this data in the textarea:
 

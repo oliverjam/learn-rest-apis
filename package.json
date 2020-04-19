@@ -5,7 +5,8 @@
   "main": "workshop/server.js",
   "private": true,
   "scripts": {
-    "dev": "nodemon workshop/server.js --ignore **/db.json"
+    "dev": "nodemon workshop/server.js --ignore **/db.json",
+    "start": "node stretch-solution/server.js"
   },
   "keywords": [],
   "author": "",

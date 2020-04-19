@@ -11,7 +11,8 @@
     {
       "id": 1586691863221,
       "name": "oli",
-      "email": "hello@oliverjam.es"
+      "email": "hello@oliverjam.es",
+      "password": "password"
     }
   ]
 }

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const dogs = require("./handlers/dogs");
 const users = require("./handlers/users");
 const logger = require("./middleware/logger");
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 
 const server = express();
 
+server.use(cors());
 server.use(express.json());
 server.use(logger);
 

@@ -20,10 +20,11 @@ server.post("/v1/dogs/", verifyUser, dogs.post);
 server.put("/v1/dogs/:id", verifyUser, dogs.put);
 server.delete("/v1/dogs/:id", verifyUser, dogs.del);
 
-server.get("/v1/user/:id", users.post);
+server.get("/v1/users/:id", users.post);
 server.post("/v1/users", users.post);
-server.put("/v1/user/:id", users.put);
-server.delete("/v1/user/:id", users.del);
+server.put("/v1/users/:id", users.put);
+server.delete("/v1/users/:id", users.del);
+server.post("/v1/users/login", users.login);
 
 server.use(handleError);
 

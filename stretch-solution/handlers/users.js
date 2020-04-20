@@ -70,12 +70,15 @@ function login(req, res, next) {
     .getUser(email)
     .then((user) => {
       if (password !== user.password) {
+        console.log({ email });
+        console.log({ password });
+        console.log({ userPassword: user.password });
         const error = new Error("Unauthorized");
         error.status = 401;
         next(error);
       } else {
         const token = jwt.sign({ user: user.id }, SECRET, { expiresIn: "1h" });
-        res.status(201).send({ access_token: token });
+        res.status(201).send({ access_token: token, id: user.id });
       }
     })
     .catch(next);

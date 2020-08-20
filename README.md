@@ -454,24 +454,16 @@ function post(req, res, next) {
 
 </details>
 
-Test this is Postman by sending a `POST` request with a new dog object. Make sure you have a valid `authorization` header set. Don't send an `owner` property. The response should contain an `owner` property with the ID of the logged in user.
+Test this in Postman by sending a `POST` request with a new dog object. Make sure you have a valid `authorization` header set. Don't send an `owner` property. The response should contain an `owner` property with the ID of the logged in user.
 
 ## Stretch goals
 
-Add the missing CRUD routes for `/user` (`GET`, `PUT` and `DELETE`). Make sure only authenticated users can access these, and that users can only edit or delete themselves. Also don't send the user's password in the `GET` response!
+### CORS
+
+Since this is a general purpose API it will probably be accessed from domains other than the one it's deployed on. Make sure your server handles cross-origin requests correctly and responds with the right headers to allow anyone to talk to the API. Check out the [cors middleware](https://github.com/expressjs/cors).
 
 ### Versioning
 
 General purpose APIs should usually have version numbers. This lets you make breaking changing whilst maintaining backwards compatibility. For example if you wanted to change the name of one of the endpoints you'd have to make sure every client using your API had updated before you made the change, or you'd break all those apps.
 
 Instead you can put a version number in the URL so clients can keep using the version they're on forever without it breaking. Add `/v1/` to the front of all your routes. Now if you ever want to make a breaking change you can release a new version with `/v2/` for all the URLs.
-
-### CORS
-
-Since this is a general purpose API it will probably be accessed from domains other than the one it's deployed on. Make sure your server handles cross-origin requests correctly and responds with the right headers to allow anyone to talk to the API.
-
-### Rate-limiting
-
-It's usually a good idea to rate-limit APIs intended for others to use (especially if they aren't paying for it). This helps prevent abuse. Rate-limiting at least the login route is also a good idea to prevent an attacker attempting to brute-force passwords by guessing thousands at a time.
-
-Find a 3rd party Express middleware for rate-limiting and use it to protect your login route.

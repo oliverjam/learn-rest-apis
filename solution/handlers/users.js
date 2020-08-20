@@ -11,8 +11,13 @@ function post(req, res, next) {
     .createUser(userData)
     .then((user) => {
       const token = jwt.sign({ user: user.id }, SECRET, { expiresIn: "1h" });
-      user.access_token = token;
-      res.status(201).send(user);
+      const response = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        access_token: token,
+      };
+      res.status(201).send(response);
     })
     .catch(next);
 }
@@ -29,7 +34,7 @@ function login(req, res, next) {
         next(error);
       } else {
         const token = jwt.sign({ user: user.id }, SECRET, { expiresIn: "1h" });
-        res.status(201).send({ access_token: token });
+        res.status(200).send({ access_token: token });
       }
     })
     .catch(next);

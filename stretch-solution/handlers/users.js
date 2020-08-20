@@ -22,8 +22,13 @@ function post(req, res, next) {
     .createUser(userData)
     .then((user) => {
       const token = jwt.sign({ user: user.id }, SECRET, { expiresIn: "1h" });
-      user.access_token = token;
-      res.status(201).send(user);
+      const response = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        access_token: token,
+      };
+      res.status(201).send(response);
     })
     .catch(next);
 }
@@ -40,7 +45,12 @@ function put(req, res, next) {
     model
       .updateUser(userId, userData)
       .then((user) => {
-        res.status(200).send(user);
+        const response = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        };
+        res.status(200).send(response);
       })
       .catch(next);
   }
@@ -70,9 +80,6 @@ function login(req, res, next) {
     .getUser(email)
     .then((user) => {
       if (password !== user.password) {
-        console.log({ email });
-        console.log({ password });
-        console.log({ userPassword: user.password });
         const error = new Error("Unauthorized");
         error.status = 401;
         next(error);

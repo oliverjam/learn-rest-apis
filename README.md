@@ -201,13 +201,13 @@ Test this using Postman to send a `DELETE` request with the ID of the dog you wa
 
 ## Authentication
 
-Our API is currently totally unprotected. This means anyone can add a dog with any owner, and update or delete any dog. For most general APIs only the `GET` routes should be public: anyone can see a list of the dogs, but only the dog's owner should be able to change or remove them.
+Our API is currently totally unprotected. This means anyone can add a dog with any owner, and delete any dog. For most general APIs only the `GET` routes should be public: anyone can see a list of the dogs, but only the dog's owner should be able to change or remove them.
 
 First we need a way for users to sign up. Our API should treat users like any other resource—ideally we should have routes for creating, reading, updating and deleting them. In the interests of time we'll just implement creation right now.
 
 ### User resource creation
 
-Create a new file at `workshop/handlers/users.js`. Inside create a function called `post` that gets the submitted user data from `req.body`. It should use this data to create a new user with `model.createUser`. Once created respond with a `201` status code and the newly created user object.
+Create a new file at `workshop/handlers/users.js`. Inside create a function called `post` that gets the submitted user data from `req.body` and creates a new user with `model.createUser`. Respond with a `201` status code and the the new user object (except for the password, which should be secret!).
 
 **Note**: in a real API we'd want to verify that the user's email was unique, since we'll be using this to verify users.
 
@@ -242,6 +242,14 @@ Test this using Postman by sending a `POST` request to `localhost:3000/users` wi
 
 You should see a `201` response with the new user object as the body.
 
+```json
+{
+  "id": 123456,
+  "email": "oli@example.com",
+  "name": "oli"
+}
+```
+
 ### Token-based authentication
 
 We can create a user, but we have no way for subsequent requests to prove they have been made by that user. If we provide a token containing their ID they can send this on all subsequent requests to authenticate themselves. This is similar to the browser sending a cookie with every request.
@@ -254,11 +262,24 @@ Add a `.env` file to the root of the project with a `JWT_SECRET` environment var
 JWT_SECRET=mn6Ak%8fbaf$ur2u£uka*8ava
 ```
 
-Now we can use `dotenv` to access this on `process.env.JWT_SECRET` in our `workshop/handlers/users` file. Use the secret to sign a JWT containing the newly created user's ID. You should also set an expiry for the token so the user isn't logged in forever. You can do this by passing a third argument to `jwt.sign`—an options object like `{ expiresIn: "1h" }`.
+Now we can use `dotenv` to access this on `process.env.JWT_SECRET` in our `workshop/handlers/users` file. Use the secret to sign a JWT containing the newly created user's ID. You should also set an expiry for the token so the user isn't logged in forever:
+
+```js
+jwt.sign(userStuff, SECRET, { expiresIn: "1h" });
+```
 
 We need to send the JWT as part of the response object, so add an `access_token` property to the object we're sending.
 
 Try sending a `POST /users` again in Postman. Now you should see an extra `access_token` property in the response. This is a JWT containing the user's ID.
+
+```json
+{
+  "id": 123456,
+  "email": "oli@example.com",
+  "name": "oli",
+  "access_token": "ey234adsfd.afnd..."
+}
+```
 
 <details>
 <summary>Solution</summary>
@@ -273,8 +294,13 @@ function signup(req, res, next) {
     .createUser(userData)
     .then((user) => {
       const token = jwt.sign({ user: user.id }, SECRET, { expiresIn: "1h" });
-      user.access_token = token;
-      res.status(201).send(user);
+      const response = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        access_token: token,
+      };
+      res.status(201).send(response);
     })
     .catch(next);
 }

@@ -174,34 +174,6 @@ server.post("/dogs", dogs.post);
 
 ![Successful POST request in Postman](https://user-images.githubusercontent.com/9408641/79139054-8442b580-7dad-11ea-9abe-7e299d0be706.png)
 
-## Updating resources
-
-We also need a route for updating dogs. Create a new route for `PUT /dogs/:id`. Write a new handler called `put` that gets a submitted dog object from `req.body`. It should use this new dog object to update the database with `model.updateDog(id, newDog)`. Once this is done respond with a `200` status code and the updated dog object.
-
-<details>
-<summary>Solution</summary>
-
-```js
-function put(req, res, next) {
-  const dogId = req.params.id;
-  const newDog = req.body;
-  model
-    .getDog(dogId)
-    .then((dog) => {
-      model.updateDog(dogId, newDog).then((dog) => {
-        res.status(200).send(dog);
-      });
-    })
-    .catch(next);
-}
-```
-
-</details>
-
-You can test this using Postman as above. You just need to include the ID of the dog you want to update in the URL.
-
-![Successful PUT request in Postman](https://user-images.githubusercontent.com/9408641/79138987-65dcba00-7dad-11ea-8e00-52be8fca2d2a.png)
-
 ## Deleting resources
 
 Finally we need a route for deleting dogs from the database. Create a new route for `DELETE /dogs/:id`. Write a new handler called `del` (`delete` is a reserved word in JS so we can't use that). It should use the ID route param to delete the dog from the database with `model.deleteDog`. Once this is done respond with a `204` ("no content") status code and an empty body. There's nothing to return from a delete (other than indicating the operation was successful).

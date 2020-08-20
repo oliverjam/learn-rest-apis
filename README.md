@@ -350,7 +350,7 @@ function login(req, res, next) {
 
 ### Verifying tokens
 
-Our API is going to use something called "bearer tokens" for authentication. This means any request for a protected resource must have an `authorization` header with a value like: `Bearer 12345` (where `12345` is a valid token). Let's create a middleware that can grab this token, extract the user, then put it on the request object for subsequent handlers to use.
+Since this API may be used by non web browser clients (like mobile apps) it can't use cookies. Instead any request for a protected resource must have an `authorization` header containing a "bearer token". E.g. `Bearer 12345` (where `12345` is a valid token). Let's create a middleware that can grab this token, extract the user, then put it on the request object for subsequent handlers to use.
 
 Create a new file `workshop/middleware/auth.js`. Write a middleware function named `verifyUser`. It should read the authorization header from the request object to get the bearer token. If the header isn't present create a new error with a status property of `400` ("bad request"). Call `next` with the error to pass it to the error-handling middleware.
 

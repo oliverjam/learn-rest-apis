@@ -140,7 +140,7 @@ We can test this endpoint using Postman. Create a new request and change the met
 }
 ```
 
-For now we're hardcoding the owner, as we haven't implemented authentication yet. Submit this request and you should see a `201` response with a body like this:
+For now we're hard-coding the owner, as we haven't implemented authentication yet. Submit this request and you should see a `201` response with a body like this:
 
 ```json
 {
@@ -172,7 +172,7 @@ server.post("/dogs", dogs.post);
 
 </details>
 
-![Sucessful POST request in Postman](https://user-images.githubusercontent.com/9408641/79139054-8442b580-7dad-11ea-9abe-7e299d0be706.png)
+![Successful POST request in Postman](https://user-images.githubusercontent.com/9408641/79139054-8442b580-7dad-11ea-9abe-7e299d0be706.png)
 
 ## Updating resources
 
@@ -272,7 +272,7 @@ You should see a `201` response with the new user object as the body.
 
 ### Token-based authentication
 
-We can create a user, but we have no way for subsequent requests to prove they havee been made by that user. If we provide a token containing their ID they can send this on all subsequent requests to authenticate themselves. This is similar to the browser sending a cookie with every request.
+We can create a user, but we have no way for subsequent requests to prove they have been made by that user. If we provide a token containing their ID they can send this on all subsequent requests to authenticate themselves. This is similar to the browser sending a cookie with every request.
 
 We'll use JWTs as our tokens. We need a secret to sign our JWTs with so we can verify they haven't been tampered with. We should keep this secret, well, secret, otherwise anyone can sign our tokens and we can't trust any of them.
 
@@ -457,7 +457,7 @@ function put(req, res, next) {
 
 </details>
 
-Test this is Postman by creating a new user, then trying to delete another user's dog sending the new user's token in the `authorization` header. You should get a `401` response. Then log in as the dog's owner and try with their token. This time the dog should be deleted successfully.
+Test this in Postman by creating a new user, then trying to delete another user's dog sending the new user's token in the `authorization` header. You should get a `401` response. Then log in as the dog's owner and try with their token. This time the dog should be deleted successfully.
 
 #### Setting a new dog's owner
 
@@ -490,7 +490,7 @@ Add the missing CRUD routes for `/user` (`GET`, `PUT` and `DELETE`). Make sure o
 
 ### Versioning
 
-General purpose APIs should usually have version numbers. This lets you make breaking changing whilst maintaining backwards compatability. For example if you wanted to change the name of one of the endpoints you'd have to make sure every client using your API had updated before you made the change, or you'd break all those apps.
+General purpose APIs should usually have version numbers. This lets you make breaking changing whilst maintaining backwards compatibility. For example if you wanted to change the name of one of the endpoints you'd have to make sure every client using your API had updated before you made the change, or you'd break all those apps.
 
 Instead you can put a version number in the URL so clients can keep using the version they're on forever without it breaking. Add `/v1/` to the front of all your routes. Now if you ever want to make a breaking change you can release a new version with `/v2/` for all the URLs.
 

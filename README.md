@@ -107,9 +107,9 @@ server.get("/dogs/:id", dogs.get);
 
 A web browser is not a great tool for developing JSON APIs. Chrome especially has no built-in JSON formatting, making it a bit awkward. It's also annoying to send anything but a `GET` request.
 
-Instead we'll be using [Insomnia](https://insomnia.rest/) to test our server. This is a nice tool for sending any type of HTTP request. [Download Insomnia](https://insomnia.rest/download/core/) - `sudo snap install insomnia` using command line - and create a new request (Ctrl-N) and call it 'Get Dogs'. Copy `localhost:3000/dogs/` into the request text input, click "Send" and you should see the JSON response appear below.
+Instead we'll be using [Insomnia](https://insomnia.rest/) to test our server. This is a nice tool for sending any type of HTTP request. [Download Insomnia](https://insomnia.rest/download/core/) - `sudo snap install insomnia` using command line - create a folder called Dogs and a new request inside it called 'Get Dogs'. Copy `localhost:3000/dogs/` into the request text input, click "Send" and you should see the JSON response appear below.
 
-![Using Insomnia to make a GET request](https://i.imgur.com/9Nx8z7R.png)
+![Using Insomnia to make a GET request](https://i.imgur.com/f5tblB7.png)
 
 
 ## Creating resources

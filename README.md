@@ -107,9 +107,9 @@ server.get("/dogs/:id", dogs.get);
 
 A web browser is not a great tool for developing JSON APIs. Chrome especially has no built-in JSON formatting, making it a bit awkward. It's also annoying to send anything but a `GET` request.
 
-Instead we'll be using [Insomnia](https://insomnia.rest/) to test our server. This is a nice tool for sending any type of HTTP request. [Download Insomnia](https://insomnia.rest/download/core/) - `sudo snap install insomnia` using command line - create a folder called Dogs and a new request inside it called 'Get Dogs'. Copy `localhost:3000/dogs/` into the request text input, click "Send" and you should see the JSON response appear below.
+Instead we'll be using [Insomnia](https://insomnia.rest/) to test our server. This is a nice tool for sending any type of HTTP request. [Download Insomnia](https://insomnia.rest/download/core/) - `sudo snap install insomnia` using command line - create a new request (Ctrl-N) inside called 'Get Dogs'. Copy `localhost:3000/dogs/` into the request text input, click "Send" and you should see the JSON response appear below.
 
-![Using Insomnia to make a GET request](https://i.imgur.com/f5tblB7.png)
+![Using Insomnia to make a GET request](https://user-images.githubusercontent.com/58533031/90925383-09d41300-e3e9-11ea-86fa-a5004a7baf91.png)
 
 
 ## Creating resources
@@ -173,7 +173,7 @@ server.post("/dogs", dogs.post);
 
 </details>
 
-![Successful POST request in Insomnia](https://i.imgur.com/qlPKavo.png)
+![Successful POST request in Insomnia](https://user-images.githubusercontent.com/58533031/90925041-81557280-e3e8-11ea-822a-62b8f931a239.png)
 
 ## Deleting resources
 
@@ -198,7 +198,7 @@ function del(req, res, next) {
 
 Test this using Insomnia to send a `DELETE` request with the ID of the dog you want to delete in the URL. You should see a `204` response with no body.
 
-![Successful delete response in Insomnia](https://i.imgur.com/DVZ1e4U.png)
+![Successful delete response in Insomnia](https://user-images.githubusercontent.com/58533031/90925039-80bcdc00-e3e8-11ea-8296-4e8725a2b343.png)
 
 ## Authentication
 
@@ -415,11 +415,11 @@ Test this in Insomnia by trying to create a dog without sending an `authorizatio
 
 Now add a random invalid `authorization` header. Insomnia has two ways to do this. You can go to the dropdown labelled 'Auth' and select 'Bearer Token', and set the Token value to `1234`. 
 
-![Letting Insomnia set the auth header](https://i.imgur.com/hmgH8oo.png)
+![Letting Insomnia set the auth header](https://user-images.githubusercontent.com/58533031/90925038-80244580-e3e8-11ea-9314-08fa1c42553b.png)
 
 It's probably best to use the inbuilt authorisation functionality, however you can manually set the header in the 'Header' tab (with a key of "authorization" and a value of `Bearer 1234`). You should receive a `401` error either way.
 
-![Manually adding auth headers in Postman](https://i.imgur.com/UUDALeO.png)
+![Manually adding auth headers in Postman](https://user-images.githubusercontent.com/58533031/90925034-7f8baf00-e3e8-11ea-8881-2662c2af8ca9.png)
 
 Finally log in as a real user, then send their `access_token` as the `authorization` header. The dog should be created successfully.
 

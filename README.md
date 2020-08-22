@@ -105,7 +105,7 @@ server.get("/dogs/:id", dogs.get);
 
 ## Insomnia
 
-A web browser is not a great tool for developing JSON APIs. Chrome especially has no built-in JSON formatting, making it a bit awkward. It's also annoying to send anything but a `GET` request. Instead, we'll be using [Insomnia](https://insomnia.rest/) to test our server. This is a nice tool for sending any type of HTTP request. In the past Founders and Coders has learned about APIs using Postman, but the interface is overcomplicated and Insomnia is much more intuitive to use and is gaining traction in the industry.
+A web browser is not a great tool for developing JSON APIs. Chrome especially has no built-in JSON formatting, making it a bit awkward. It's also annoying to send anything but a `GET` request. Instead, we'll be using [Insomnia](https://insomnia.rest/) to test our server. This is a nice tool for sending any type of HTTP request. You may have tried a popular app called Postman—we're using Insomnia instead as the interface is simpler and a bit more intuitive.
 
 [Download Insomnia](https://insomnia.rest/download/core/) or you can run `sudo snap install insomnia` in the command line.
 

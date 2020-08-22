@@ -1,6 +1,6 @@
 # Learn REST APIs
 
-Learn how to build a service that manages JSON data using the REST architecture. We'll also learn how to use bearer tokens to authenticate our API and Postman to test it in development.
+Learn how to build a service that manages JSON data using the REST architecture. We'll also learn how to use bearer tokens to authenticate our API, and Insomnia to test it in development.
 
 ## Representational State Transfer (REST)
 
@@ -103,13 +103,16 @@ server.get("/dogs/:id", dogs.get);
 
 </details>
 
-## Postman
+## Insomnia
 
-A web browser is not a great tool for developing JSON APIs. Chrome especially has no built-in JSON formatting, making it a bit awkward. It's also annoying to send anything but a `GET` request.
+A web browser is not a great tool for developing JSON APIs. Chrome especially has no built-in JSON formatting, making it a bit awkward. It's also annoying to send anything but a `GET` request. Instead, we'll be using [Insomnia](https://insomnia.rest/) to test our server. This is a nice tool for sending any type of HTTP request. You may have tried a popular app called Postman — we're using Insomnia instead as the interface is simpler and a bit more intuitive.
 
-Instead we'll be using [Postman](https://www.postman.com/) to test our server. This is a nice tool for sending any type of HTTP request. Open Postman and create a new request. Choose `GET` for the method and `localhost:3000/dogs/` as the request URL. Click "Send" and you should see the JSON response appear below.
+[Download Insomnia](https://insomnia.rest/download/core/).
 
-![Using Postman to make a GET request](https://user-images.githubusercontent.com/9408641/79138741-f1098000-7dac-11ea-8432-10772dc80666.png)
+Create a new request (Ctrl-N) called 'Get Dogs'. Copy `localhost:3000/dogs/` into the request text input, click "Send" you should see the JSON response appear below.
+
+![Using Insomnia to make a GET request](https://user-images.githubusercontent.com/58533031/90925383-09d41300-e3e9-11ea-86fa-a5004a7baf91.png)
+
 
 ## Creating resources
 
@@ -130,7 +133,7 @@ Create a handler function named `post` that gets the submitted data from `req.bo
 
 Add this handler to your server for the `POST /dogs/` route.
 
-We can test this endpoint using Postman. Create a new request and change the method to POST. Keep the URL as `localhost:3000/dogs`. Go to the "Body" tab, then select the "raw" radio button. This will let us send a JSON POST body. Change the format dropdown from "Text" to "JSON", then enter this data in the textarea:
+We can test this endpoint using Insomnia. Create a new request and change the method to POST. Keep the URL as `localhost:3000/dogs`. Click the drop down labelled 'Body' and select JSON. This will let us send a JSON body with our `POST` request (and automatically add a header of `Content-Type: application/json`). Enter this data in the text area:
 
 ```json
 {
@@ -172,7 +175,7 @@ server.post("/dogs", dogs.post);
 
 </details>
 
-![Successful POST request in Postman](https://user-images.githubusercontent.com/9408641/79139054-8442b580-7dad-11ea-9abe-7e299d0be706.png)
+![Successful POST request in Insomnia](https://user-images.githubusercontent.com/58533031/90925041-81557280-e3e8-11ea-822a-62b8f931a239.png)
 
 ## Deleting resources
 
@@ -195,9 +198,9 @@ function del(req, res, next) {
 
 </details>
 
-Test this using Postman to send a `DELETE` request with the ID of the dog you want to delete in the URL. You should see a `204` response with no body.
+Test this using Insomnia to send a `DELETE` request with the ID of the dog you want to delete in the URL. You should see a `204` response with no body.
 
-![Successful delete response in Postman](https://user-images.githubusercontent.com/9408641/79139183-beac5280-7dad-11ea-91f0-c87cecda3086.png)
+![Successful delete response in Insomnia](https://user-images.githubusercontent.com/58533031/90925039-80bcdc00-e3e8-11ea-8296-4e8725a2b343.png)
 
 ## Authentication
 
@@ -230,7 +233,7 @@ function post(req, res, next) {
 
 </details>
 
-Test this using Postman by sending a `POST` request to `localhost:3000/users` with a body like:
+Test this using Insomnia by sending a `POST` request to `localhost:3000/users` with a body like:
 
 ```json
 {
@@ -270,7 +273,7 @@ jwt.sign(userStuff, SECRET, { expiresIn: "1h" });
 
 We need to send the JWT as part of the response object, so add an `access_token` property to the object we're sending.
 
-Try sending a `POST /users` again in Postman. Now you should see an extra `access_token` property in the response. This is a JWT containing the user's ID.
+Try sending a `POST /users` again in Insomnia. Now you should see an extra `access_token` property in the response. This is a JWT containing the user's ID.
 
 ```json
 {
@@ -410,15 +413,15 @@ server.delete("/dogs/:id", verifyUser, dogs.del);
 
 </details>
 
-Test this in Postman by trying to delete a dog without sending an `authorization` header. You should receive a `400` error.
+Test this in Insomnia by trying to create a dog without sending an `authorization` header. You should receive a `400` error.
 
-Now add a random invalid `authorization` header. Postman has two ways to do this. You can go to the "Authorization" tab, select "Bearer Token" from the "Type" dropdown, then set the token as "1234".
+Now add a random invalid `authorization` header. Insomnia has two ways to do this. You can go to the dropdown labelled 'Auth' and select 'Bearer Token', and set the Token value to `1234`. 
 
-![Letting Postman set the auth header](https://user-images.githubusercontent.com/9408641/79138459-72144780-7dac-11ea-84c6-cc4d38eb56da.png)
+![Letting Insomnia set the auth header](https://user-images.githubusercontent.com/58533031/90925038-80244580-e3e8-11ea-9314-08fa1c42553b.png)
 
-Or you can manually set the header in the "Headers" tab (with a key of "authorization" and a value of "Bearer 1234"). You should receive a `401` error.
+It's probably best to use the inbuilt authorisation functionality, however you can manually set the header in the 'Header' tab (with a key of "authorization" and a value of `Bearer 1234`). You should receive a `401` error either way.
 
-![Manually adding auth headers in Postman](https://user-images.githubusercontent.com/9408641/79138399-5b6df080-7dac-11ea-9665-0512e9671ed1.png)
+![Manually adding auth headers in Postman](https://user-images.githubusercontent.com/58533031/90925034-7f8baf00-e3e8-11ea-8881-2662c2af8ca9.png)
 
 Finally log in as a real user, then send their `access_token` as the `authorization` header. The dog should be created successfully.
 
@@ -455,7 +458,7 @@ function put(req, res, next) {
 
 </details>
 
-Test this in Postman by creating a new user, then trying to delete another user's dog sending the new user's token in the `authorization` header. You should get a `401` response. Then log in as the dog's owner and try with their token. This time the dog should be deleted successfully.
+Test this in Insomnia by creating a new user, then trying to delete another user's dog sending the new user's token in the `authorization` header. You should get a `401` response. Then log in as the dog's owner and try with their token. This time the dog should be deleted successfully.
 
 #### Setting a new dog's owner
 
@@ -480,7 +483,7 @@ function post(req, res, next) {
 
 </details>
 
-Test this in Postman by sending a `POST` request with a new dog object. Make sure you have a valid `authorization` header set. Don't send an `owner` property. The response should contain an `owner` property with the ID of the logged in user.
+Test this in Insomnia by sending a `POST` request with a new dog object. Make sure you have a valid `authorization` header set. Don't send an `owner` property. The response should contain an `owner` property with the ID of the logged in user.
 
 ## Stretch goals
 

@@ -113,7 +113,6 @@ Create a new request (Ctrl-N) called 'Get Dogs'. Copy `localhost:3000/dogs/` int
 
 ![Using Insomnia to make a GET request](https://user-images.githubusercontent.com/58533031/90925383-09d41300-e3e9-11ea-86fa-a5004a7baf91.png)
 
-
 ## Creating resources
 
 Now we need to add a route for adding new dogs to the database. Since this is a JSON API we need to be able to _receive_ JSON data. For example until now we've had data submitted via HTML forms, which means the `POST` bodies had a `content-type` of `x-www-form-urlencoded`. Now we'll be receiving bodies formatted as `application/json`.
@@ -225,7 +224,12 @@ function post(req, res, next) {
   model
     .createUser(userData)
     .then((user) => {
-      res.status(201).send(userData);
+      const response = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      };
+      res.status(201).send(response);
     })
     .catch(next);
 }
@@ -415,7 +419,7 @@ server.delete("/dogs/:id", verifyUser, dogs.del);
 
 Test this in Insomnia by trying to create a dog without sending an `authorization` header. You should receive a `400` error.
 
-Now add a random invalid `authorization` header. Insomnia has two ways to do this. You can go to the dropdown labelled 'Auth' and select 'Bearer Token', and set the Token value to `1234`. 
+Now add a random invalid `authorization` header. Insomnia has two ways to do this. You can go to the dropdown labelled 'Auth' and select 'Bearer Token', and set the Token value to `1234`.
 
 ![Letting Insomnia set the auth header](https://user-images.githubusercontent.com/58533031/90925038-80244580-e3e8-11ea-9314-08fa1c42553b.png)
 

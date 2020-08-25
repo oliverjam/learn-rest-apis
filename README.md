@@ -295,7 +295,7 @@ Try sending a `POST /users` again in Insomnia. Now you should see an extra `acce
 require("dotenv").config();
 const SECRET = process.env.JWT_SECRET;
 
-function signup(req, res, next) {
+function post(req, res, next) {
   const userData = req.body;
   model
     .createUser(userData)

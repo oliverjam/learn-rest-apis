@@ -404,7 +404,7 @@ function verifyUser(req, res, next) {
 
 ### Protecting routes
 
-Now that we have users and tokens working we can protect the routes that should be private. Add the `verifyUser` middleware before the `POST /dogs`, `PUT /dogs/:id` and `DELETE /dogs/:id` route handlers. Now requests with no token (or an invalid token) will be rejected before reaching our handlers.
+Now that we have users and tokens working we can protect the routes that should be private. Add the `verifyUser` middleware before the `POST /dogs` and `DELETE /dogs/:id` route handlers. Now requests with no token (or an invalid token) will be rejected before reaching our handlers.
 
 <details>
 <summary>Solution</summary>
@@ -431,7 +431,7 @@ Finally log in as a real user, then send their `access_token` as the `authorizat
 
 #### Checking a dog's owner
 
-However this isn't quite enough. Currently _any_ logged in user can delete any dog, since we're just checking for a valid token. We need to amend our `PUT` and `DELETE` handlers to get the authenticated user's ID from `req.user`, then check if that ID matches the dog's `owner` property. If it does not create a new error with a `401` status property and call `next` with it.
+However this isn't quite enough. Currently _any_ logged in user can delete any dog, since we're just checking for a valid token. We need to amend our `DELETE` handler to get the authenticated user's ID from `req.user`, then check if that ID matches the dog's `owner` property. If it does not create a new error with a `401` status property and call `next` with it.
 
 <details>
 <summary>Solution</summary>

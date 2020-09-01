@@ -25,7 +25,8 @@ function verifyUser(req, res, next) {
           next();
         })
         .catch(next);
-    } catch (_) {
+    } catch (error_we_dont_use) {
+      // catch statements have to capture an error variable, even if you don't need it
       // we don't use the caught error, since we know it came from jwt.verify
       const error = new Error("Unauthorized");
       error.status = 401;
